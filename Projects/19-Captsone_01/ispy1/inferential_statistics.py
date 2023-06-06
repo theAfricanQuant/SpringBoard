@@ -18,8 +18,7 @@ def contingency_table(predictor, outcome, dataframe):
     '''
     T = _pd.crosstab(dataframe[predictor], dataframe[outcome]).astype(float);
     T = T.loc[['Yes','No']]
-    T = T[['Yes','No']]
-    return T
+    return T[['Yes','No']]
 
 def relative_risk(T):
     '''
@@ -106,15 +105,23 @@ def anova_MRI(outcome, df):
     results = results = _pd.DataFrame(np.random.random(size=(len(mri_predictors),1)),
                                           index=mri_predictors, columns=['p-value'])
     for idx, pred in enumerate(mri_predictors):
-        p = list();     p.append(pred)
+        p = [pred]
         nova_table, _ = linear_models(df, outcome, p, print_results=0);
         results.ix[idx] = nova_table['PR(>F)'].values[0]
 
     f, (ax1, ax2) = plt.subplots(2,2, figsize=(10,10))
-    sns.boxplot(x= outcome, y=mri_predictors[0], data=df, palette="Set3", ax=ax1[0]).set_title('p-value = '+ str(results.values[0]));
-    sns.boxplot(x= outcome, y=mri_predictors[1], data=df, palette="Set3", ax=ax2[0]).set_title('p-value = '+ str(results.values[1]));
-    sns.boxplot(x= outcome, y=mri_predictors[2], data=df, palette="Set3", ax=ax1[1]).set_title('p-value = '+ str(results.values[2]));
-    sns.boxplot(x= outcome, y=mri_predictors[3], data=df, palette="Set3", ax=ax2[1]).set_title('p-value = '+ str(results.values[3]));
+    sns.boxplot(
+        x=outcome, y=mri_predictors[0], data=df, palette="Set3", ax=ax1[0]
+    ).set_title(f'p-value = {str(results.values[0])}');
+    sns.boxplot(
+        x=outcome, y=mri_predictors[1], data=df, palette="Set3", ax=ax2[0]
+    ).set_title(f'p-value = {str(results.values[1])}');
+    sns.boxplot(
+        x=outcome, y=mri_predictors[2], data=df, palette="Set3", ax=ax1[1]
+    ).set_title(f'p-value = {str(results.values[2])}');
+    sns.boxplot(
+        x=outcome, y=mri_predictors[3], data=df, palette="Set3", ax=ax2[1]
+    ).set_title(f'p-value = {str(results.values[3])}');
     plt.show()
     return results
 

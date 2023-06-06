@@ -13,8 +13,7 @@ RANDOM_STATE = 42; # for reproducibility
 
 def labels_to_numbers(DataFrame, Variable):
     le = preprocessing.LabelEncoder()
-    numbers_ = le.fit_transform(DataFrame[Variable].values)
-    return numbers_
+    return le.fit_transform(DataFrame[Variable].values)
 
 
 def binary_classifier_metrics(classifier, Xtrain, Ytrain, Xtest, Ytest):
@@ -34,8 +33,8 @@ def binary_classifier_metrics(classifier, Xtrain, Ytrain, Xtest, Ytest):
 
     # report
     print(metrics.classification_report(Ytest,predicted_class))
-    print('The estimated Cohen kappa is ' + str(kappa))
-    print('The estimated AUC is ' + str(auc))
+    print(f'The estimated Cohen kappa is {str(kappa)}')
+    print(f'The estimated AUC is {str(auc)}')
     print('=='*30)
     print('\n'*2)
 
@@ -139,7 +138,9 @@ def plot_forest_feature_importances_(forest, features_legend, title = ''):
 def plot_compare_roc(fpr1_, tpr1_,fpr2_, tpr2_, auc1, auc2, title =''):
     plt.figure()
     plt.plot(fpr1_, tpr1_, fpr2_, tpr2_);
-    plt.legend(['Unbalanced | AUC = ' + str(auc1),'Oversampled | AUC = ' + str(auc2)]);
+    plt.legend(
+        [f'Unbalanced | AUC = {str(auc1)}', f'Oversampled | AUC = {str(auc2)}']
+    );
     plt.xlabel('False-positive rate');
     plt.ylabel('True-positive rate');
     plt.title(title);
@@ -156,7 +157,9 @@ def mae_report(Ytest, Yhat, outcome_):
     error = np.round( error, decimals=3)
     # report
     print('==' *40)
-    print('The median absolute error for testing data set of ' + outcome_ + ' is: ' + str(error))
+    print(
+        f'The median absolute error for testing data set of {outcome_} is: {str(error)}'
+    )
     print('==' *40)
 
 import seaborn.apionly as sns
@@ -170,8 +173,8 @@ def train_test_report(predictor, Xtrain, Ytrain, Xtest, Ytest, outcome):
     mae_report(Ytest, Yhat, outcome)
 
     ax = sns.regplot(x = Ytrain, y= predictor.predict(Xtrain));
-    ax.set_ylabel('Predicted ' + outcome);
-    ax.set_xlabel('Observed ' + outcome);
+    ax.set_ylabel(f'Predicted {outcome}');
+    ax.set_xlabel(f'Observed {outcome}');
 
 # lsq
 import statsmodels.api as sm
@@ -190,12 +193,14 @@ from sklearn.model_selection import GridSearchCV
 
 # GridSearchCV utility
 def gridsearch(regressor, grid):
-    optimized_regressor=  GridSearchCV(  regressor,
-                               param_grid = grid,
-                               cv= 3, verbose = 0, n_jobs = -1,
-                               scoring = metrics.make_scorer(metrics.median_absolute_error))
-
-    return optimized_regressor
+    return GridSearchCV(
+        regressor,
+        param_grid=grid,
+        cv=3,
+        verbose=0,
+        n_jobs=-1,
+        scoring=metrics.make_scorer(metrics.median_absolute_error),
+    )
 
 
 

@@ -16,8 +16,8 @@ include = ['Age', 'Sex', 'Embarked', 'Survived']
 dependent_variable = include[-1]
 
 model_directory = 'model'
-model_file_name = '%s/model.pkl' % model_directory
-model_columns_file_name = '%s/model_columns.pkl' % model_directory
+model_file_name = f'{model_directory}/model.pkl'
+model_columns_file_name = f'{model_directory}/model_columns.pkl'
 
 # These will be populated at training time
 model_columns = None
@@ -83,7 +83,7 @@ def train():
     start = time.time()
     clf.fit(x, y)
     print('Trained in %.1f seconds' % (time.time() - start))
-    print('Model training score: %s' % clf.score(x, y))
+    print(f'Model training score: {clf.score(x, y)}')
 
     joblib.dump(clf, model_file_name)
 
@@ -98,7 +98,7 @@ def wipe():
         return 'Model wiped'
 
     except Exception as e:
-        print(str(e))
+        print(e)
         return 'Could not remove and recreate the model directory'
 
 
@@ -117,7 +117,7 @@ if __name__ == '__main__':
     except Exception as e:
         print('No model here')
         print('Train first')
-        print(str(e))
+        print(e)
         clf = None
 
     app.run(host='0.0.0.0', port=port, debug=True)

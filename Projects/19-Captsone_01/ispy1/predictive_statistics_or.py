@@ -14,8 +14,7 @@ from sklearn.ensemble import RandomForestClassifier as RFC
 
 def labels_to_numbers(DataFrame, Variable):
     le = preprocessing.LabelEncoder()
-    numbers_ = le.fit_transform(DataFrame[Variable].values)
-    return numbers_
+    return le.fit_transform(DataFrame[Variable].values)
 
 def plot_roc_curve(fpr, tpr, lw = 2, title=''):
     auc = metrics.auc(fpr,tpr);

@@ -35,9 +35,6 @@ def transformed_regression(dframe,func,label):
 def usa_map_figure(df_,column, legend):
     for col in df_.columns:
         df_[col] = df_[col].astype(str)
-    #scl = [[0.0, 'rgb(242,240,247)'],[0.2, 'rgb(218,218,235)'],[0.4, 'rgb(188,189,220)'],\
-     #       [0.6, 'rgb(158,154,200)'],[0.8, 'rgb(117,107,177)'],[1.0, 'rgb(84,39,143)']]
-
     data = [ dict(
         type='choropleth',
         #colorscale = scl,
@@ -64,8 +61,7 @@ def usa_map_figure(df_,column, legend):
             lakecolor = 'rgb(255, 255, 255)'),
              )
 
-    fig = dict( data=data, layout=layout )
-    return fig
+    return dict( data=data, layout=layout )
     #py.iplot( fig, filename='Excess-Readmission-Ratio' )
     
     

@@ -48,7 +48,7 @@ def LogRe(X,y):
     auc = metrics.auc(fpr,tpr)
     plt.figure(1)
     plt.plot(fpr,tpr,'o-');
-    plt.title("AUC =" + str(auc))
+    plt.title(f"AUC ={str(auc)}")
     plt.xlabel('False-Positive Rate')
     plt.ylabel('True-Positive Rate')
     plt.show()

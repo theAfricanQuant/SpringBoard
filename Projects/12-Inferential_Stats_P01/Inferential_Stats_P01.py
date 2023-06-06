@@ -18,8 +18,22 @@ def footer():
 def con_table():
     print("Contingency Table")
 def p_print(p_val, var_,out_, OR):
-    print("The p-value for the effect of " + var_ + " on "+out_+" is:" + '{}'.format(p_val))
-    print("The odds ratio for the effect of " + var_ + " on "+out_+" is:" + '{}'.format(OR))
+    print(
+        "The p-value for the effect of "
+        + var_
+        + " on "
+        + out_
+        + " is:"
+        + f'{p_val}'
+    )
+    print(
+        "The odds ratio for the effect of "
+        + var_
+        + " on "
+        + out_
+        + " is:"
+        + f'{OR}'
+    )
 
 #rename columns
 df = df.rename(columns={'ERpos':'ER+',
@@ -67,15 +81,20 @@ def fig_01(ydata,xdata, hue_data):
     sns.boxplot(x= xdata, y=ydata, hue = hue_data, data=df, palette="Set3");
 
 def anova_(predictor):
-    print('ANOVA for {} on PCR'.format(predictor))
+    print(f'ANOVA for {predictor} on PCR')
     f, p = stats.f_oneway(df.loc[df.PCR=='No', :][predictor],
                                                     df.loc[df.PCR=='Yes',:][predictor])
 
-    print("The p-value for the effect of  " + predictor + " on PCR is:" + '{}'.format(p))
+    print("The p-value for the effect of  " + predictor + " on PCR is:" + f'{p}')
     print(10*'----')
 
     print('ANOVA for ' + predictor + ' on Survival')
     f, p = stats.f_oneway(df.loc[ df.Survival == 'Alive',:][predictor], df.loc[ df.Survival == 'Dead',:][predictor])
 
-    print("The p-value for the effect of  " + predictor + " on Survival is:" + '{}'.format(p))
+    print(
+        "The p-value for the effect of  "
+        + predictor
+        + " on Survival is:"
+        + f'{p}'
+    )
     print(10*'----')

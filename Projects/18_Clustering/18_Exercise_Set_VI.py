@@ -50,9 +50,9 @@ clusters = pd.DataFrame(
 # Functions to use in the jupyter notebook
 def describe_no_K_needed():
     print(20*'==')
-    print('Affinity Propagation found '+str(len(np.unique(aprop))) + ' clusters')
+    print(f'Affinity Propagation found {len(np.unique(aprop))} clusters')
     print(20*'==')
-    print('DBSCAN  found '+str(len(np.unique(dbscan))) + ' clusters')
+    print(f'DBSCAN  found {len(np.unique(dbscan))} clusters')
     print(20*'==')
     
  
